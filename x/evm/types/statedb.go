@@ -543,7 +543,7 @@ func (csdb *CommitStateDB) Finalise(deleteEmptyObjects bool) error {
 		} else {
 			// Set all the dirty state storage items for the state object in the
 			// KVStore and finally set the account in the account mapper.
-			stateEntry.stateObject.commitState()
+			//	stateEntry.stateObject.commitState()
 			if err := csdb.updateStateObject(stateEntry.stateObject); err != nil {
 				return err
 			}
@@ -776,7 +776,6 @@ func (csdb *CommitStateDB) CreateAccount(addr ethcmn.Address) {
 		newobj.setBalance(evmDenom, sdk.NewDecFromBigIntWithPrec(prevobj.Balance(), sdk.Precision)) // int2dec
 	}
 }
-
 
 // ForEachStorage iterates over each storage items, all invoke the provided
 // callback on each key, value pair.
