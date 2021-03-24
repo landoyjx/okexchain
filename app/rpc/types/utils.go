@@ -184,7 +184,7 @@ func FormatBlock(
 		"number":           hexutil.Uint64(header.Height),
 		"hash":             hexutil.Bytes(curBlockHash),
 		"parentHash":       hexutil.Bytes(header.LastBlockID.Hash),
-		"nonce":            hexutil.EncodeUint64(0), // PoW specific
+		"nonce":            fmt.Sprintf("0x%016x",0), // PoW specific
 		"sha3Uncles":       common.Hash{},     // No uncles in Tendermint
 		"logsBloom":        bloom,
 		"transactionsRoot": hexutil.Bytes(header.DataHash),
