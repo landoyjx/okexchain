@@ -184,8 +184,8 @@ func FormatBlock(
 		"number":           hexutil.Uint64(header.Height),
 		"hash":             hexutil.Bytes(curBlockHash),
 		"parentHash":       hexutil.Bytes(header.LastBlockID.Hash),
-		"nonce":            fmt.Sprintf("0x%016x",0), // PoW specific
-		"sha3Uncles":       common.Hash{},     // No uncles in Tendermint
+		"nonce":            fmt.Sprintf("0x%016x", 0), // PoW specific
+		"sha3Uncles":       common.Hash{},             // No uncles in Tendermint
 		"logsBloom":        bloom,
 		"transactionsRoot": hexutil.Bytes(header.DataHash),
 		"stateRoot":        hexutil.Bytes(header.AppHash),
@@ -203,9 +203,17 @@ func FormatBlock(
 	}
 	switch transactions.(type) {
 	case []common.Hash:
-		ret["transactions"] = transactions.([]common.Hash)
+		if len(transactions.([]common.Hash)) == 0 {
+			ret["transactions"] = []common.Hash{}
+		} else {
+			ret["transactions"] = transactions.([]common.Hash)
+		}
 	case []*Transaction:
-		ret["transactions"] = transactions.([]*Transaction)
+		if len(transactions.([]*Transaction)) == 0 {
+			ret["transactions"] = []*Transaction{}
+		} else {
+			ret["transactions"] = transactions.([]*Transaction)
+		}
 	}
 	return ret
 }
